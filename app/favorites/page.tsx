@@ -1,22 +1,24 @@
 "use client";
 
-import EmptyState from "@/components/ui/EmptyState";
-import { useFavoritesStore } from "@/store/favorites.store";
 import Image from "next/image";
 import Link from "next/link";
+
+import EmptyState from "@/components/ui/EmptyState";
+
+import { useFavoritesStore } from "@/store/favorites.store";
 
 function FavoritesPage() {
   const { favorites, moveFavorite, removeFavorite } = useFavoritesStore();
 
   if (favorites.length === 0) {
     return (
-      <main className="min-h-screen bg-slate-950 text-slate-100 p-10">
-        <div className="mx-auto max-w-7xl p-6 md:p-10">
+      <main>
+        <div className="custom-container p-6 md:p-10">
           <div className="mb-10">
             <p className="text-sm tracking-[0.35em] text-cyan-400/80 uppercase">
               Favorites
             </p>
-            <h1 className="mt-3 text-5xl font-bold">Favorites</h1>
+            <h1 className="mt-3">Favorites</h1>
           </div>
 
           <EmptyState message="No favorites yet" />
@@ -26,14 +28,14 @@ function FavoritesPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
-      <div className="mx-auto max-w-7xl p-6 md:p-10">
+    <main>
+      <div className="custom-container p-6 md:p-10">
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm tracking-[0.35em] text-cyan-400/80 uppercase">
               Favorites
             </p>
-            <h1 className="mt-3 text-5xl font-bold">Favorites</h1>
+            <h1 className="mt-3">Favorites</h1>
             <p className="mt-2 text-slate-400">Max 5 favorites</p>
           </div>
         </div>
@@ -42,7 +44,7 @@ function FavoritesPage() {
           {favorites.map((character, index) => (
             <article
               key={character.id}
-              className="flex flex-col gap-4 overflow-hidden rounded-4xl bg-slate-900 p-6 md:flex-row shadow-2xl ring-1 ring-white/5"
+              className="flex flex-col gap-4 p-6 shadow-2xl ring-1 ring-white/5 md:flex-row"
             >
               <Link href={`/character/${character.id}`}>
                 <Image
@@ -50,12 +52,12 @@ function FavoritesPage() {
                   alt={character.name}
                   width={150}
                   height={150}
-                  className="rounded-[1.25rem] object-cover"
+                  className="rounded-[1.25rem] hover:scale-105"
                 />
               </Link>
 
               <div className="flex-1">
-                <h2 className="text-2xl font-bold">{character.name}</h2>
+                <h2>{character.name}</h2>
 
                 <p className="text-slate-400">{character.species}</p>
 
@@ -66,20 +68,20 @@ function FavoritesPage() {
                 <button
                   disabled={index === 0}
                   onClick={() => moveFavorite(index, index - 1)}
-                  className="rounded-2xl bg-slate-700 px-4 py-2 disabled:opacity-40"
+                  className="favorite-button"
                 >
                   ↑
                 </button>
                 <button
                   disabled={index === favorites.length - 1}
                   onClick={() => moveFavorite(index, index + 1)}
-                  className="rounded-2xl bg-slate-700 px-4 py-2 disabled:opacity-40"
+                  className="favorite-button"
                 >
                   ↓
                 </button>
                 <button
                   onClick={() => removeFavorite(character.id)}
-                  className="rounded-2xl bg-cyan-500 px-4 py-2 text-black"
+                  className="favorite-button bg-cyan-500 text-black hover:bg-cyan-400"
                 >
                   Remove
                 </button>

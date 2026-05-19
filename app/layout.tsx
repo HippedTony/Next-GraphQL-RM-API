@@ -1,8 +1,9 @@
-import type { Metadata } from 'next';
-import './globals.css';
-
 import ApolloProviderWrapper from '@/components/providers/ApolloProvider';
 import Navbar from '@/components/layout/Navbar';
+
+import type { Metadata } from 'next';
+
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Rick & Morty App',
