@@ -40,35 +40,37 @@ export default function Home() {
   const characters = data?.characters?.results || [];
 
   return (
-    <main className="min-h-screen p-6 md:p-10">
-      <div className="flex flex-col gap-6 mb-10">
-        <h1 className="text-4xl font-bold">Rick & Morty Characters</h1>
+    <main className="min-h-screen bg-slate-950 text-slate-100">
+      <div className="mx-auto max-w-7xl p-6 md:p-10">
+        <div className="flex flex-col gap-6 mb-10">
+          <h1 className="text-4xl font-bold">Rick & Morty Characters</h1>
 
-        <div className="flex gap-4 flex-col sm:flex-row">
-          <SearchBar value={search} onChange={setSearch} />
+          <div className="flex gap-4 flex-col sm:flex-row">
+            <SearchBar value={search} onChange={setSearch} />
 
-          <ViewToggle viewMode={viewMode} onChange={setViewMode} />
+            <ViewToggle viewMode={viewMode} onChange={setViewMode} />
+          </div>
         </div>
+
+        {loading && <Loader />}
+
+        {!loading && error && (
+          <ErrorMessage message="Failed to load characters" />
+        )}
+
+        {!loading && !error && characters.length === 0 && (
+          <EmptyState message="No characters found" />
+        )}
+
+        {!loading &&
+          !error &&
+          characters.length > 0 &&
+          (viewMode === 'grid' ? (
+            <CharacterGrid characters={characters} />
+          ) : (
+            <CharacterList characters={characters} />
+          ))}
       </div>
-
-      {loading && <Loader />}
-
-      {!loading && error && (
-        <ErrorMessage message="Failed to load characters" />
-      )}
-
-      {!loading && !error && characters.length === 0 && (
-        <EmptyState message="No characters found" />
-      )}
-
-      {!loading &&
-        !error &&
-        characters.length > 0 &&
-        (viewMode === 'grid' ? (
-          <CharacterGrid characters={characters} />
-        ) : (
-          <CharacterList characters={characters} />
-        ))}
     </main>
   );
 }
