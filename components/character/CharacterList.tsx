@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { Character } from '@/types/character';
 
@@ -10,37 +11,45 @@ function CharacterList({ characters }: CharacterListProps) {
   return (
     <div className="space-y-4">
       {characters.map((character) => (
-        <article
+        <Link
           key={character.id}
-          className="flex flex-col sm:flex-row gap-4 bg-slate-800 rounded-2xl overflow-hidden shadow-lg"
+          href={`/character/${character.id}`}
+          className="group block"
         >
-          <Image
-            src={character.image}
-            alt={character.name}
-            width={200}
-            height={200}
-            className="w-full sm:w-52 h-52 object-cover"
-          />
+          <article className="flex flex-col sm:flex-row h-full overflow-hidden rounded-4xl bg-slate-900 shadow-2xl ring-1 ring-white/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(14,165,233,0.65)]">
+            <div className="overflow-hidden rounded-l-4xl bg-slate-950 sm:rounded-r-none sm:rounded-l-4xl">
+              <Image
+                src={character.image}
+                alt={character.name}
+                width={200}
+                height={200}
+                className="h-52 w-full object-cover transition duration-300 group-hover:scale-105 sm:w-52"
+              />
+            </div>
 
-          <div className="p-5 space-y-2">
-            <h2 className="text-2xl font-bold">{character.name}</h2>
+            <div className="flex flex-col justify-between p-6 space-y-4 flex-1">
+              <div>
+                <h2 className="text-2xl font-bold text-white transition-colors duration-200 group-hover:text-cyan-400">
+                  {character.name}
+                </h2>
+                <p className="mt-2 text-sm uppercase tracking-[0.25em] text-slate-500">
+                  {character.species}
+                </p>
+              </div>
 
-            <p>
-              <span className="font-semibold">Species:</span>{' '}
-              {character.species}
-            </p>
-
-            <p>
-              <span className="font-semibold">Gender:</span>{' '}
-              {character.gender}
-            </p>
-
-            <p>
-              <span className="font-semibold">Status:</span>{' '}
-              {character.status}
-            </p>
-          </div>
-        </article>
+              <div className="grid gap-3 rounded-3xl bg-slate-800 p-4 text-sm text-slate-300">
+                <p>
+                  <span className="font-semibold text-slate-100">Gender:</span>{' '}
+                  {character.gender}
+                </p>
+                <p>
+                  <span className="font-semibold text-slate-100">Status:</span>{' '}
+                  {character.status}
+                </p>
+              </div>
+            </div>
+          </article>
+        </Link>
       ))}
     </div>
   );
