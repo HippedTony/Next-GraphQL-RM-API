@@ -6,6 +6,8 @@ import { useQuery } from '@apollo/client/react';
 import { GET_CHARACTERS } from '@/graphql/queries/characters';
 
 import CharacterGrid from '@/components/character/CharacterGrid';
+import CharacterList from '@/components/character/CharacterList';
+import ViewToggle from '@/components/character/ViewToggle';
 import SearchBar from '@/components/character/SearchBar';
 
 import Loader from '@/components/ui/Loader';
@@ -13,6 +15,7 @@ import ErrorMessage from '@/components/ui/ErrorMessage';
 import EmptyState from '@/components/ui/EmptyState';
 
 import { Character } from '@/types/character';
+import { ViewMode } from '@/types/view-mode';
 
 import { useDebounce } from '@/hooks/useDebounce';
 
@@ -24,6 +27,7 @@ interface CharacterResponse {
 
 export default function Home() {
   const [search, setSearch] = useState('');
+  const [viewMode, setViewMode] = useState<ViewMode>('grid');
 
   const debouncedSearch = useDebounce(search, 500);
 
@@ -40,7 +44,11 @@ export default function Home() {
       <div className="flex flex-col gap-6 mb-10">
         <h1 className="text-4xl font-bold">Rick & Morty Characters</h1>
 
-        <SearchBar value={search} onChange={setSearch} />
+        <div className="flex gap-4 flex-col sm:flex-row">
+          <SearchBar value={search} onChange={setSearch} />
+
+          <ViewToggle viewMode={viewMode} onChange={setViewMode} />
+        </div>
       </div>
 
       {loading && <Loader />}
@@ -49,9 +57,18 @@ export default function Home() {
         <ErrorMessage message="Failed to load characters" />
       )}
 
-      {!loading && !error && characters.length > 0 && (
-        <CharacterGrid characters={characters} />
+      {!loading && !error && characters.length === 0 && (
+        <EmptyState message="No characters found" />
       )}
+
+      {!loading &&
+        !error &&
+        characters.length > 0 &&
+        (viewMode === 'grid' ? (
+          <CharacterGrid characters={characters} />
+        ) : (
+          <CharacterList characters={characters} />
+        ))}
     </main>
   );
 }
