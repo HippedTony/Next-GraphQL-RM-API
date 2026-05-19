@@ -7,7 +7,7 @@ interface ChartToggleProps {
 
 function ChartToggle({ mode, onChange }: ChartToggleProps) {
   return (
-    <div className="sm:w-1/4 xl:w-1/6 flex rounded-2xl border border-slate-700 overflow-hidden bg-slate-800">
+    <div className="flex overflow-hidden rounded-2xl border border-slate-700 bg-slate-800 sm:w-1/4 xl:w-1/6">
       <button
         onClick={() => onChange("default")}
         className={`w-full px-2 py-3 text-sm font-semibold transition duration-200 ${
@@ -20,7 +20,7 @@ function ChartToggle({ mode, onChange }: ChartToggleProps) {
       </button>
       <button
         onClick={() => onChange("species")}
-        className={`w-full px-2 py-3 text-sm font-semibold transition duration-200 ${
+        className={`w-full min-w-fit px-2 py-3 text-sm font-semibold transition duration-200 ${
           mode === "species"
             ? "bg-cyan-500 text-black shadow-lg"
             : "bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white"

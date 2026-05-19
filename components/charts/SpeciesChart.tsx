@@ -38,7 +38,7 @@ function SpeciesChart({ characters }: SpeciesChartProps) {
   return (
     <div className="mb-10 rounded-4xl bg-slate-900 p-4 sm:p-6 shadow-2xl ring-1 ring-white/5">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold">Characters by Species</h2>
+        <h2>Characters by Species</h2>
         <p className="text-slate-400">Distribution of characters</p>
       </div>
 
@@ -51,9 +51,9 @@ function SpeciesChart({ characters }: SpeciesChartProps) {
               axisLine={false}
               tickLine={false}
               interval={0}
-              angle={-45}
+              angle={-30}
               textAnchor="end"
-              height={60}
+              height={70}
             />
             <YAxis
               tick={{ fill: '#94a3b8', fontSize: 12 }}

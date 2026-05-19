@@ -1,15 +1,75 @@
 @import "tailwindcss";
 
-* {
-  box-sizing: border-box;
+@layer base {
+  body {
+    background-color: #0f172a;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  main {
+    min-height: 100vh;
+    background-color: var(--color-slate-950);
+    color: var(--color-slate-100);
+  }
+
+  h1 {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-weight-bold);
+
+    @variant lg {
+      font-size: var(--text-5xl);
+    }
+  }
+
+  h2 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-bold);
+  }
+}
+
+@layer components {
+  .custom-container {
+    margin: 0 auto;
+    max-width: var(--container-7xl);
+  }
+  
+  .favorite-button {
+    background-color: var(--color-slate-800);
+    padding: 8px 16px;
+    border-radius: 1rem;
+
+    @variant disabled {
+      opacity: 40%;
+    }
+
+    @variant enabled:hover {
+      background-color: var(--color-slate-700);
+    }
+  }
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  background-color: #0f172a;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
+article {
+  background-color: var(--color-slate-900);
+  border-radius: 2rem;
+  transition: all 0.3s;
+  overflow: hidden;
+}
+
+img {
+  object-fit: cover;
+  transition: all 0.3s;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.recharts-tooltip-wrapper > .recharts-default-tooltip {
+  background-color: transparent !important;
+  border: none !important;
 }

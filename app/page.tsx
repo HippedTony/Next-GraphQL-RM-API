@@ -45,12 +45,12 @@ export default function Home() {
   const characters = data?.characters?.results || [];
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
-      <div className="mx-auto max-w-7xl p-6 md:p-10">
+    <main>
+      <div className="custom-container p-6 md:p-10">
         <div className="mb-10 flex flex-col gap-6">
-          <h1 className="text-4xl font-bold">Rick & Morty Characters</h1>
+          <h1>Rick & Morty Characters</h1>
 
-          <div className="flex flex-col gap-4 sm:flex-row">
+          <div className="flex flex-col gap-3 sm:flex-row">
             <SearchBar value={search} onChange={setSearch} />
 
             <ViewToggle viewMode={viewMode} onChange={setViewMode} />

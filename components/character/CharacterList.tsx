@@ -16,20 +16,20 @@ function CharacterList({ characters }: CharacterListProps) {
           href={`/character/${character.id}`}
           className="group block"
         >
-          <article className="flex flex-col sm:flex-row h-full overflow-hidden rounded-4xl bg-slate-900 shadow-2xl ring-1 ring-white/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(14,165,233,0.65)]">
+          <article className="flex flex-col sm:flex-row h-full shadow-2xl ring-1 ring-white/5 hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(14,165,233,0.65)]">
             <div className="overflow-hidden rounded-l-4xl bg-slate-950 sm:rounded-r-none sm:rounded-l-4xl">
               <Image
                 src={character.image}
                 alt={character.name}
                 width={200}
                 height={200}
-                className="h-52 w-full object-cover transition duration-300 group-hover:scale-105 sm:w-52"
+                className="h-52 w-full group-hover:scale-105 sm:w-52"
               />
             </div>
 
             <div className="flex flex-col justify-between p-6 space-y-4 flex-1">
               <div>
-                <h2 className="text-2xl font-bold text-white transition-colors duration-200 group-hover:text-cyan-400">
+                <h2 className="text-white transition-colors duration-200 group-hover:text-cyan-400">
                   {character.name}
                 </h2>
                 <p className="mt-2 text-sm uppercase tracking-[0.25em] text-slate-500">
