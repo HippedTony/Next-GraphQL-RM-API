@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 import ApolloProviderWrapper from '@/components/providers/ApolloProvider';
+import Navbar from '@/components/layout/Navbar';
 
 export const metadata: Metadata = {
   title: 'Rick & Morty App',
@@ -16,7 +17,10 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <body>
-        <ApolloProviderWrapper>{children}</ApolloProviderWrapper>
+        <ApolloProviderWrapper>
+          <Navbar />
+          {children}
+        </ApolloProviderWrapper>
       </body>
     </html>
   );

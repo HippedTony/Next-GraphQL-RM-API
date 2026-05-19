@@ -1,15 +1,16 @@
-'use client';
+"use client";
 
-import { useParams, useRouter } from 'next/navigation';
-import Image from 'next/image';
+import { useParams, useRouter } from "next/navigation";
+import Image from "next/image";
 
-import { useQuery } from '@apollo/client/react';
-import { GET_CHARACTER } from '@/graphql/queries/characters';
+import { useQuery } from "@apollo/client/react";
+import { GET_CHARACTER } from "@/graphql/queries/characters";
 
-import Loader from '@/components/ui/Loader';
-import ErrorMessage from '@/components/ui/ErrorMessage';
+import Loader from "@/components/ui/Loader";
+import ErrorMessage from "@/components/ui/ErrorMessage";
+import FavoriteButton from "@/components/favorites/FavoriteButton";
 
-import { Character } from '@/types/character';
+import { Character } from "@/types/character";
 
 interface CharacterResponse {
   character: Character;
@@ -44,7 +45,7 @@ function CharacterDetailPage() {
       <div className="mx-auto max-w-7xl p-6 md:p-10">
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm uppercase tracking-[0.35em] text-cyan-400/80">
+            <p className="text-sm tracking-[0.35em] text-cyan-400/80 uppercase">
               Character details
             </p>
             <h1 className="mt-3 text-5xl font-bold">{character.name}</h1>
@@ -54,19 +55,17 @@ function CharacterDetailPage() {
           </div>
 
           <div>
-            <button className="inline-flex items-center rounded-2xl bg-cyan-500 px-5 py-3 text-sm font-semibold text-black transition hover:bg-cyan-400">
-              Add to favorites
-            </button>{' '}
+            <FavoriteButton character={character} />
             <button
-              onClick={() => router.push('/')}
-              className="inline-flex items-center rounded-2xl bg-cyan-500 ms-2 px-5 py-3 text-sm font-semibold text-black transition hover:bg-cyan-400"
+              onClick={() => router.push("/")}
+              className="ms-2 inline-flex items-center rounded-2xl bg-cyan-500 px-5 py-3 text-sm font-semibold text-black transition hover:bg-cyan-400"
             >
-              {'<-'}
+              {"<-"}
             </button>
           </div>
         </div>
 
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.9fr] items-start">
+        <div className="grid items-start gap-10 lg:grid-cols-[1.2fr_0.9fr]">
           <div className="rounded-4xl bg-slate-900 p-6 shadow-2xl ring-1 ring-white/5">
             <Image
               src={character.image}
@@ -87,21 +86,21 @@ function CharacterDetailPage() {
                   {character.gender}
                 </span>
                 <span className="rounded-full bg-slate-800 px-4 py-2 text-sm text-slate-300">
-                  {character.origin?.name || 'Unknown origin'}
+                  {character.origin?.name || "Unknown origin"}
                 </span>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-3xl bg-slate-800 p-5">
-                  <p className="text-sm uppercase tracking-[0.2em] text-slate-400">
+                  <p className="text-sm tracking-[0.2em] text-slate-400 uppercase">
                     Type
                   </p>
                   <p className="mt-2 text-lg font-semibold">
-                    {character.type || 'Unknown'}
+                    {character.type || "Unknown"}
                   </p>
                 </div>
                 <div className="rounded-3xl bg-slate-800 p-5">
-                  <p className="text-sm uppercase tracking-[0.2em] text-slate-400">
+                  <p className="text-sm tracking-[0.2em] text-slate-400 uppercase">
                     Location
                   </p>
                   <p className="mt-2 text-lg font-semibold">
@@ -109,7 +108,7 @@ function CharacterDetailPage() {
                   </p>
                 </div>
                 <div className="rounded-3xl bg-slate-800 p-5">
-                  <p className="text-sm uppercase tracking-[0.2em] text-slate-400">
+                  <p className="text-sm tracking-[0.2em] text-slate-400 uppercase">
                     Origin
                   </p>
                   <p className="mt-2 text-lg font-semibold">
@@ -117,7 +116,7 @@ function CharacterDetailPage() {
                   </p>
                 </div>
                 <div className="rounded-3xl bg-slate-800 p-5">
-                  <p className="text-sm uppercase tracking-[0.2em] text-slate-400">
+                  <p className="text-sm tracking-[0.2em] text-slate-400 uppercase">
                     Status
                   </p>
                   <p className="mt-2 text-lg font-semibold">
@@ -129,31 +128,31 @@ function CharacterDetailPage() {
 
             <div className="space-y-6">
               <div className="rounded-4xl bg-slate-900 p-6 shadow-2xl ring-1 ring-white/5">
-                <h2 className="text-2xl font-bold mb-4">About</h2>
+                <h2 className="mb-4 text-2xl font-bold">About</h2>
                 <div className="space-y-3 text-slate-300">
                   <p>
                     <span className="font-semibold text-slate-100">
                       Species:
-                    </span>{' '}
+                    </span>{" "}
                     {character.species}
                   </p>
                   <p>
                     <span className="font-semibold text-slate-100">
                       Origin:
-                    </span>{' '}
+                    </span>{" "}
                     {character.origin?.name}
                   </p>
                   <p>
                     <span className="font-semibold text-slate-100">
                       Location:
-                    </span>{' '}
+                    </span>{" "}
                     {character.location?.name}
                   </p>
                 </div>
               </div>
 
               <div className="rounded-4xl bg-slate-900 p-6 shadow-2xl ring-1 ring-white/5">
-                <div className="flex items-center justify-between mb-4">
+                <div className="mb-4 flex items-center justify-between">
                   <h2 className="text-2xl font-bold">Episodes</h2>
                   <span className="rounded-full bg-slate-800 px-3 py-1 text-sm text-slate-400">
                     {character.episode?.length} total
