@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <div className="">
-      Hello
+    <div className="min-h-screen p-10">
+      <h1 className="text-4xl font-bold">Rick & Morty App</h1>
     </div>
   );
 }
