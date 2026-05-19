@@ -1,23 +1,27 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useQuery } from '@apollo/client/react';
+import { useState } from "react";
+import { useQuery } from "@apollo/client/react";
 
-import { GET_CHARACTERS } from '@/graphql/queries/characters';
+import { GET_CHARACTERS } from "@/graphql/queries/characters";
 
-import CharacterGrid from '@/components/character/CharacterGrid';
-import CharacterList from '@/components/character/CharacterList';
-import ViewToggle from '@/components/character/ViewToggle';
-import SearchBar from '@/components/character/SearchBar';
+import CharacterGrid from "@/components/character/CharacterGrid";
+import CharacterList from "@/components/character/CharacterList";
+import ViewToggle from "@/components/character/ViewToggle";
+import SearchBar from "@/components/character/SearchBar";
 
-import Loader from '@/components/ui/Loader';
-import ErrorMessage from '@/components/ui/ErrorMessage';
-import EmptyState from '@/components/ui/EmptyState';
+import Loader from "@/components/ui/Loader";
+import ErrorMessage from "@/components/ui/ErrorMessage";
+import EmptyState from "@/components/ui/EmptyState";
 
-import { Character } from '@/types/character';
-import { ViewMode } from '@/types/view-mode';
+import SpeciesChart from "@/components/charts/SpeciesChart";
+import ChartToggle from "@/components/charts/ChartToggle";
 
-import { useDebounce } from '@/hooks/useDebounce';
+import { Character } from "@/types/character";
+import { ViewMode } from "@/types/view-mode";
+import { ChartMode } from "@/types/chart-mode";
+
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface CharacterResponse {
   characters: {
@@ -26,8 +30,9 @@ interface CharacterResponse {
 }
 
 export default function Home() {
-  const [search, setSearch] = useState('');
-  const [viewMode, setViewMode] = useState<ViewMode>('grid');
+  const [search, setSearch] = useState("");
+  const [viewMode, setViewMode] = useState<ViewMode>("grid");
+  const [chartMode, setChartMode] = useState<ChartMode>("default");
 
   const debouncedSearch = useDebounce(search, 500);
 
@@ -42,13 +47,15 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100">
       <div className="mx-auto max-w-7xl p-6 md:p-10">
-        <div className="flex flex-col gap-6 mb-10">
+        <div className="mb-10 flex flex-col gap-6">
           <h1 className="text-4xl font-bold">Rick & Morty Characters</h1>
 
-          <div className="flex gap-4 flex-col sm:flex-row">
+          <div className="flex flex-col gap-4 sm:flex-row">
             <SearchBar value={search} onChange={setSearch} />
 
             <ViewToggle viewMode={viewMode} onChange={setViewMode} />
+
+            <ChartToggle mode={chartMode} onChange={setChartMode} />
           </div>
         </div>
 
@@ -62,10 +69,12 @@ export default function Home() {
           <EmptyState message="No characters found" />
         )}
 
+        {chartMode === "species" && <SpeciesChart characters={characters} />}
+
         {!loading &&
           !error &&
           characters.length > 0 &&
-          (viewMode === 'grid' ? (
+          (viewMode === "grid" ? (
             <CharacterGrid characters={characters} />
           ) : (
             <CharacterList characters={characters} />
