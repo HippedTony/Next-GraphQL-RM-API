@@ -5,7 +5,7 @@ interface SearchBarProps {
 
 function SearchBar({ value, onChange }: SearchBarProps) {
   return (
-    <div className="sm:w-4/5 xl:w-5/6">
+    <div className="sm:w-2/4 xl:w-4/6">
       <input
         type="text"
         placeholder="Search Rick, Morty..."
